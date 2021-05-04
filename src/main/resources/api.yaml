@@ -1,0 +1,823 @@
+swagger: "2.0"
+info:
+  title: API для банковского приложения
+  description: Описание API для банковского приложения
+  version: 1.0.0
+host: localhost:8080
+basePath: /api
+schemes:
+  - https
+tags:
+  - name: Broker
+    description: брокер
+  - name: Rate
+    description: тариф
+  - name: Account
+    description: аккаунт
+  - name: Holiday
+    description: выходной
+  - name: HolidayStockExchange
+    description: биржевый выходной
+  - name: User
+    description: пользователь
+  - name: StockExchange
+    description: биржа
+  - name: Share
+    description: акция
+  - name: Operation
+    description: операция
+
+paths:
+  /brokers/:
+    get:
+      tags:
+        - Broker
+      summary: получение всех брокеров
+      description: метод предназначен для получения списка всех брокеров
+      operationId: getBrokers
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список брокеров
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/Broker'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - Broker
+      operationId: postBroker
+      summary: создание брокера
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Broker'
+      responses:
+        '200':
+          description: созданый брокер
+          schema:
+            $ref: '#/definitions/Broker'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+  /brokers/{brokerId}/:
+    delete:
+      tags:
+        - Broker
+      summary: удаление брокера
+      description: метод для удаления брокера
+      operationId: "deleteBroker"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "brokerId"
+          in: "path"
+          description: "Broker id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "not found"
+
+  /accounts/{accountId}/:
+    delete:
+      tags:
+        - Account
+      summary: удаление аккаунта
+      description: метод для удаления аккаунта
+      operationId: "deleteAccount"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "accountId"
+          in: "path"
+          description: "Account id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "not found"
+
+  /rates/{rateId}/:
+    delete:
+      tags:
+        - Rate
+      summary: удаление тарифа
+      description: метод для удаления тарифа
+      operationId: "deleteRate"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "rateId"
+          in: "path"
+          description: "Rate id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "not found"
+
+
+  /holidays/{holidayId}/:
+    delete:
+      tags:
+        - Holiday
+      summary: удаление выходного
+      description: метод для удаления выхожного
+      operationId: "deleteHoliday"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "holidayId"
+          in: "path"
+          description: "Holiday id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "not found"
+
+  /holidaysStockExchange/{holidayStockExchangeId}/{holidayId}:
+    delete:
+      tags:
+        - HolidayStockExchange
+      summary: удаление выходного на бирже
+      description: метод для удаления выходного на бирже
+      operationId: "deleteHolidayStockExchange"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "holidayStockExchangeId"
+          in: "path"
+          description: "HolidayStockExchange id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "holidayId"
+          in: "path"
+          description: "Holiday id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "not found"
+
+  /stockExchanges/{stockExchangeId}/:
+    delete:
+      tags:
+        - StockExchange
+      summary: удаление биржи
+      description: метод для удаления биржи
+      operationId: "deleteStockExchange"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "stockExchangeId"
+          in: "path"
+          description: "StockExchange id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "not found"
+
+  /shares/{shareId}/:
+    delete:
+      tags:
+        - Share
+      summary: удаление акции
+      description: метод для удаления акции
+      operationId: "deleteShare"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "shareId"
+          in: "path"
+          description: "Share id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "not found"
+
+  /users/{userId}/:
+    delete:
+      tags:
+        - User
+      summary: удаление пользователя
+      description: метод для удаления пользователя
+      operationId: "deleteUser"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "User id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "not found"
+
+
+  /rates/:
+    get:
+      tags:
+        - Rate
+      summary: получение всех тарифов
+      description: метод предназначен для получения списка всех тарифов
+      operationId: getRates
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список тарифов
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/Rate'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - Rate
+      operationId: postRate
+      summary: создание тарифа
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Rate'
+      responses:
+        '200':
+          description: созданый тариф
+          schema:
+            $ref: '#/definitions/Rate'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+  /accounts/:
+    get:
+      tags:
+        - Account
+      summary: получение всех аккаунтов
+      description: метод предназначен для получения списка всех аккаунтов
+      operationId: getAccounts
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список аккаунтов
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/Account'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - Account
+      operationId: postAccount
+      summary: создание аккаунта
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Account'
+      responses:
+        '200':
+          description: созданый аккаунт
+          schema:
+            $ref: '#/definitions/Account'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+  /holidays/:
+    get:
+      tags:
+        - Holiday
+      summary: получение всех выходных
+      description: метод предназначен для получения списка всех выходных
+      operationId: getHolidays
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список выходных
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/Holiday'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - Holiday
+      operationId: postHoliday
+      summary: создание выходного
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Holiday'
+      responses:
+        '200':
+          description: созданый выходной
+          schema:
+            $ref: '#/definitions/Holiday'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+  /holidaysStockExchange/:
+    get:
+      tags:
+        - HolidayStockExchange
+      summary: получение всех выходных на бирже
+      description: метод предназначен для получения списка всех выходных биржи
+      operationId: getHolidaysStockExchange
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список выходных биржи
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/HolidayStockExchange'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - HolidayStockExchange
+      operationId: postHolidayStockExchange
+      summary: создание выходного для биржи
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/HolidayStockExchange'
+      responses:
+        '200':
+          description: созданый выходной биржи
+          schema:
+            $ref: '#/definitions/HolidayStockExchange'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+  /users/:
+    get:
+      tags:
+        - User
+      summary: получение всех пользователей
+      description: метод предназначен для получения списка всех пользователей
+      operationId: getUsers
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список пользователей
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - User
+      operationId: postUser
+      summary: создание пользователя
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: созданый пользователь
+          schema:
+            $ref: '#/definitions/User'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+  /stockExchanges/:
+    get:
+      tags:
+        - StockExchange
+      summary: получение всех бирж
+      description: метод предназначен для получения списка всех бирж
+      operationId: getStockExchange
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список бирж
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/StockExchange'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - StockExchange
+      operationId: postStockExchange
+      summary: создание биржи
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/StockExchange'
+      responses:
+        '200':
+          description: созданая биржа
+          schema:
+            $ref: '#/definitions/StockExchange'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+  /shares/:
+    get:
+      tags:
+        - Share
+      summary: получение всех акций
+      description: метод предназначен для получения списка всех акций
+      operationId: getShares
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список акций
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/Share'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - Share
+      operationId: postShare
+      summary: создание акции
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Share'
+      responses:
+        '200':
+          description: созданая акция
+          schema:
+            $ref: '#/definitions/Share'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+  /operations/:
+    get:
+      tags:
+        - Operation
+      summary: получение всех операций
+      description: метод предназначен для получения списка всех операций
+      operationId: getOperations
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список операций
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/Operation'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - Operation
+      operationId: postOperation
+      summary: создание операции
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Operation'
+      responses:
+        '200':
+          description: созданая операция
+          schema:
+            $ref: '#/definitions/Operation'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+
+
+
+definitions:
+
+  Broker:
+    type: object
+    description: брокер
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: integer
+        description: порядковый номер
+      name:
+        type: string
+        description: название брокера
+      country:
+        type: string
+        description: страна
+      state:
+        type: boolean
+        description: государственный ли брокер
+
+  Holiday:
+    type: object
+    description: выходной
+    required:
+      - id
+      - date
+    properties:
+      id:
+        type: integer
+        description: порядковый номер
+      date:
+        type: string
+        description: дата
+
+  HolidayStockExchange:
+    type: object
+    description: выходной на бирже
+    required:
+      - holidayId
+      - stockExchangeId
+    properties:
+      holidayId:
+        type: integer
+        description: порядковый номер выходного
+      stockExchangeId:
+        type: integer
+        description: порядковый номер биржи
+
+  Rate:
+    type: object
+    description: тариф
+    required:
+      - id
+      - brokerId
+    properties:
+      id:
+        type: integer
+        description: порядковый номер
+      name:
+        type: string
+        description: имя тарифа
+      commission:
+        type: number
+        description: коммисия
+      cost:
+        type: integer
+        description: цена
+      brokerId:
+        type: integer
+        description: порядковый номер брокера
+
+  Account:
+    type: object
+    description: аккаунт
+    required:
+      - id
+      - brokerId
+      - cash
+      - userId
+    properties:
+      id:
+        type: integer
+        description: порядковый номер
+      brokerId:
+        type: integer
+        description: порядковый номер брокера
+      cash:
+        type: number
+        description: деньги
+      margin:
+        type: boolean
+        description: разрешена ли маржинальная торговля
+      rateId:
+        type: integer
+        description: номер тарифа
+      userId:
+        type: integer
+        description: номер пользователя
+
+  StockExchange:
+    type: object
+    description: биржа
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: integer
+        description: порядковый номер
+      name:
+        type: string
+        description: название биржи
+      territory:
+        type: string
+        description: страна
+      currency:
+        type: string
+        description: валюта
+      dayStart:
+        type: string
+        format: time
+        description: начало работы
+      dayFinish:
+        type: string
+        format: time
+        description: конец работы
+
+  Share:
+    type: object
+    description: акция
+    required:
+      - id
+      - name
+      - cost
+    properties:
+      id:
+        type: integer
+        description: порядковый номер
+      name:
+        type: string
+        description: название акции
+      stockExchangeId:
+        type: integer
+        description: номер биржи
+      cost:
+        type: number
+        description: цена одной акции
+      count:
+        type: integer
+        description: количество акций в лоте
+
+
+  User:
+    type: object
+    description: пользователь
+    required:
+      - id
+      - name
+      - surname
+      - birthDate
+    properties:
+      id:
+        type: integer
+        description: порядковый номер
+      name:
+        type: string
+        description: имя человека
+      surname:
+        type: string
+        description: фамилия человека
+      birthDate:
+        type: string
+        description: дата рождения
+
+  Operation:
+    type: object
+    description: операция
+    required:
+      - id
+      - count
+      - shareId
+    properties:
+      id:
+        type: integer
+        description: порядковый номер
+      userId:
+        type: integer
+        description: порядковый номер пользователя
+      shareId:
+        type: integer
+        description: порядковый номер акции
+      count:
+        type: integer
+        description: количество лотов
+      buySell:
+        type: string
+        description: покупка или продажа
+
+  Exception:
+    type: object
+    description: описание ошибки
+    properties:
+      field:
+        type: array
+        description: если ошибка валидации, то здесь поле из запроса, по которому произошла ошибка
+        items:
+          type: string
+      message:
+        type: string
+        description: текст ошибки
+      description:
+        type: string
+        description: человеко-понятное описание ошибки
+
+
+
+
+
