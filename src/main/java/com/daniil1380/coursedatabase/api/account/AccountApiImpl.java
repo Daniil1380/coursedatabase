@@ -5,7 +5,9 @@ import com.daniil1380.coursedatabase.service.AccountService;
 import io.swagger.client.api.AccountApi;
 import io.swagger.client.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +41,13 @@ public class AccountApiImpl extends AccountApi {
             method = RequestMethod.DELETE)
     @Override
     public void deleteAccount(@PathVariable("accountId") Long accountId) {
-        accountService.delete(Math.toIntExact(accountId));
+        if (accountService.get(accountId.intValue()).isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not Found");
+        }
+        accountService.delete(accountId.intValue());
+
     }
+
+
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -23,11 +24,9 @@ public class AccountService {
         return (List<AccountEntity>) repo.findAll();
     }
 
-    public AccountEntity get(Integer id) {
-        return repo.findById(id).get();
+    public Optional<AccountEntity> get(Integer id) {
+        return repo.findById(id);
     }
 
-    public void delete(Integer id) {
-        repo.deleteById(id);
-    }
+    public void delete(Integer id) { repo.deleteById(id); }
 }

@@ -8,7 +8,9 @@ import io.swagger.client.ApiException;
 import io.swagger.client.api.HolidayStockExchangeApi;
 import io.swagger.client.model.HolidayStockExchange;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +28,10 @@ public class HolidayStockExchangeApiImpl extends HolidayStockExchangeApi {
         HolidayStockExchangeIdClass holidayStockExchangeIdClass = new HolidayStockExchangeIdClass();
         holidayStockExchangeIdClass.setHolidayId(holidayId.intValue());
         holidayStockExchangeIdClass.setStockExchangeId(holidayStockExchangeId.intValue());
+        if (holidayStockExchangeService.get(holidayStockExchangeIdClass).isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not found");
+        }
         holidayStockExchangeService.delete(holidayStockExchangeIdClass);
     }
 

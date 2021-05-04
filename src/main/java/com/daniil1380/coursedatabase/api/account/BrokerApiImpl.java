@@ -7,7 +7,9 @@ import io.swagger.client.ApiException;
 import io.swagger.client.api.BrokerApi;
 import io.swagger.client.model.Broker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +24,10 @@ public class BrokerApiImpl extends BrokerApi {
             method = RequestMethod.DELETE)
     @Override
     public void deleteBroker(@PathVariable Long brokerId) throws ApiException {
+        if (brokerService.get(brokerId.intValue()).isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not found");
+        }
         brokerService.delete(Math.toIntExact(brokerId));
     }
 
@@ -38,7 +44,6 @@ public class BrokerApiImpl extends BrokerApi {
             method = RequestMethod.POST)
     @Override
     public Broker postBroker(@RequestBody Broker body) throws ApiException {
-        System.out.println(body);
         brokerService.save(new BrokerEntity(body));
         return body;
     }

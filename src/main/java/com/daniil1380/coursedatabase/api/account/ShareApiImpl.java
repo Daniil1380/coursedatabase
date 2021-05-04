@@ -7,7 +7,9 @@ import io.swagger.client.ApiException;
 import io.swagger.client.api.ShareApi;
 import io.swagger.client.model.Share;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +25,10 @@ public class ShareApiImpl extends ShareApi {
             method = RequestMethod.DELETE)
     @Override
     public void deleteShare(@PathVariable("shareId") Long shareId) throws ApiException {
+        if (shareService.get(shareId.intValue()).isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not found");
+        }
         shareService.delete(Math.toIntExact(shareId));
     }
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -26,8 +27,8 @@ public class HolidayStockExchangeService {
         return (List<HolidayStockExchangeEntity>) repo.findAll();
     }
 
-    public HolidayStockExchangeEntity get(HolidayStockExchangeIdClass id) {
-        return repo.findById(id).get();
+    public Optional<HolidayStockExchangeEntity> get(HolidayStockExchangeIdClass id) {
+        return repo.findById(id);
     }
 
     public void delete(HolidayStockExchangeIdClass id) {

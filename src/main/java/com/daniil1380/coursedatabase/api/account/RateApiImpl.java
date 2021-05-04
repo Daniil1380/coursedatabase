@@ -7,7 +7,9 @@ import io.swagger.client.ApiException;
 import io.swagger.client.api.RateApi;
 import io.swagger.client.model.Rate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +24,10 @@ public class RateApiImpl extends RateApi {
             method = RequestMethod.DELETE)
     @Override
     public void deleteRate(@PathVariable("rateId") Long rateId) throws ApiException {
+        if (rateService.get(rateId.intValue()).isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not found");
+        }
         rateService.delete(Math.toIntExact(rateId));
     }
 

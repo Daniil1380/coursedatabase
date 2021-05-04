@@ -4,7 +4,6 @@ info:
   description: Описание API для банковского приложения
   version: 1.0.0
 host: localhost:8080
-basePath: /api
 schemes:
   - https
 tags:
@@ -607,8 +606,9 @@ definitions:
     type: object
     description: брокер
     required:
-      - id
       - name
+      - country
+      - state
     properties:
       id:
         type: integer
@@ -627,7 +627,6 @@ definitions:
     type: object
     description: выходной
     required:
-      - id
       - date
     properties:
       id:
@@ -655,8 +654,10 @@ definitions:
     type: object
     description: тариф
     required:
-      - id
       - brokerId
+      - name
+      - commission
+      - cost
     properties:
       id:
         type: integer
@@ -678,10 +679,11 @@ definitions:
     type: object
     description: аккаунт
     required:
-      - id
       - brokerId
       - cash
+      - margin
       - userId
+      - rateId
     properties:
       id:
         type: integer
@@ -706,8 +708,11 @@ definitions:
     type: object
     description: биржа
     required:
-      - id
       - name
+      - territory
+      - currency
+      - dayStart
+      - dayFinish
     properties:
       id:
         type: integer
@@ -734,9 +739,10 @@ definitions:
     type: object
     description: акция
     required:
-      - id
       - name
       - cost
+      - stockExchangeId
+      - count
     properties:
       id:
         type: integer
@@ -759,7 +765,6 @@ definitions:
     type: object
     description: пользователь
     required:
-      - id
       - name
       - surname
       - birthDate
@@ -781,9 +786,10 @@ definitions:
     type: object
     description: операция
     required:
-      - id
       - count
       - shareId
+      - userId
+      - buySell
     properties:
       id:
         type: integer

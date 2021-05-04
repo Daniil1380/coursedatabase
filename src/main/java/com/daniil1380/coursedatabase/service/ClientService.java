@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -25,8 +26,8 @@ public class ClientService {
         return (List<ClientEntity>) repo.findAll();
     }
 
-    public ClientEntity get(Integer id) {
-        return repo.findById(id).get();
+    public Optional<ClientEntity> get(Integer id) {
+        return repo.findById(id);
     }
 
     public void delete(Integer id) {
