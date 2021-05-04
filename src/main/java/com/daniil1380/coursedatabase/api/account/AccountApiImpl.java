@@ -5,6 +5,7 @@ import com.daniil1380.coursedatabase.service.AccountService;
 import io.swagger.client.api.AccountApi;
 import io.swagger.client.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,12 +19,17 @@ public class AccountApiImpl extends AccountApi {
     @Autowired
     private AccountService accountService;
 
+
     @RequestMapping(value = "/accounts/",
             produces = { "application/json" },
             method = RequestMethod.GET)
     @Override
     public List<Account> getAccounts() {
-        return accountService.listAll().stream().map(AccountEntity::toAccount).collect(Collectors.toList());
+        long start = System.currentTimeMillis();
+        List<Account> list = accountService.listAll().stream().map(AccountEntity::toAccount).collect(Collectors.toList());
+        long finish = System.currentTimeMillis();
+        System.out.println(finish - start);
+        return list;
     }
 
 

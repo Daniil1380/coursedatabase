@@ -20,18 +20,6 @@ public class ClientApiImpl extends UserApi {
     private ClientService clientService;
 
 
-    @RequestMapping(value = "/users/{userId}",
-            produces = { "application/json" },
-            method = RequestMethod.DELETE)
-    @Override
-    public void deleteUser(@PathVariable Long userId) throws ApiException {
-        if (clientService.get(userId.intValue()).isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Not found");
-        }
-        clientService.delete(Math.toIntExact(userId));
-    }
-
 
     @RequestMapping(value = "/users/",
             produces = { "application/json" },

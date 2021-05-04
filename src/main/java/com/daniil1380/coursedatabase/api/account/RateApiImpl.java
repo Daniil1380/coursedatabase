@@ -19,18 +19,6 @@ public class RateApiImpl extends RateApi {
     @Autowired
     private RateService rateService;
 
-    @RequestMapping(value = "/rates/{rateId}",
-            produces = { "application/json" },
-            method = RequestMethod.DELETE)
-    @Override
-    public void deleteRate(@PathVariable("rateId") Long rateId) throws ApiException {
-        if (rateService.get(rateId.intValue()).isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Not found");
-        }
-        rateService.delete(Math.toIntExact(rateId));
-    }
-
 
     @RequestMapping(value = "/rates/",
             produces = { "application/json" },

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import springfox.documentation.builders.PathSelectors;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 
 @SpringBootApplication
 @EnableSwagger2
+@EnableCaching
 public class CoursedatabaseApplication {
 
     public static void main(String[] args) {

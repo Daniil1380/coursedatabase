@@ -69,28 +69,6 @@ paths:
           schema:
             $ref: '#/definitions/Exception'
 
-  /brokers/{brokerId}/:
-    delete:
-      tags:
-        - Broker
-      summary: удаление брокера
-      description: метод для удаления брокера
-      operationId: "deleteBroker"
-      produces:
-        - "application/xml"
-        - "application/json"
-      parameters:
-        - name: "brokerId"
-          in: "path"
-          description: "Broker id для удаления"
-          required: true
-          type: "integer"
-          format: "int64"
-      responses:
-        "400":
-          description: "Invalid ID supplied"
-        "404":
-          description: "not found"
 
   /accounts/{accountId}/:
     delete:
@@ -106,53 +84,6 @@ paths:
         - name: "accountId"
           in: "path"
           description: "Account id для удаления"
-          required: true
-          type: "integer"
-          format: "int64"
-      responses:
-        "400":
-          description: "Invalid ID supplied"
-        "404":
-          description: "not found"
-
-  /rates/{rateId}/:
-    delete:
-      tags:
-        - Rate
-      summary: удаление тарифа
-      description: метод для удаления тарифа
-      operationId: "deleteRate"
-      produces:
-        - "application/xml"
-        - "application/json"
-      parameters:
-        - name: "rateId"
-          in: "path"
-          description: "Rate id для удаления"
-          required: true
-          type: "integer"
-          format: "int64"
-      responses:
-        "400":
-          description: "Invalid ID supplied"
-        "404":
-          description: "not found"
-
-
-  /holidays/{holidayId}/:
-    delete:
-      tags:
-        - Holiday
-      summary: удаление выходного
-      description: метод для удаления выхожного
-      operationId: "deleteHoliday"
-      produces:
-        - "application/xml"
-        - "application/json"
-      parameters:
-        - name: "holidayId"
-          in: "path"
-          description: "Holiday id для удаления"
           required: true
           type: "integer"
           format: "int64"
@@ -190,76 +121,6 @@ paths:
           description: "Invalid ID supplied"
         "404":
           description: "not found"
-
-  /stockExchanges/{stockExchangeId}/:
-    delete:
-      tags:
-        - StockExchange
-      summary: удаление биржи
-      description: метод для удаления биржи
-      operationId: "deleteStockExchange"
-      produces:
-        - "application/xml"
-        - "application/json"
-      parameters:
-        - name: "stockExchangeId"
-          in: "path"
-          description: "StockExchange id для удаления"
-          required: true
-          type: "integer"
-          format: "int64"
-      responses:
-        "400":
-          description: "Invalid ID supplied"
-        "404":
-          description: "not found"
-
-  /shares/{shareId}/:
-    delete:
-      tags:
-        - Share
-      summary: удаление акции
-      description: метод для удаления акции
-      operationId: "deleteShare"
-      produces:
-        - "application/xml"
-        - "application/json"
-      parameters:
-        - name: "shareId"
-          in: "path"
-          description: "Share id для удаления"
-          required: true
-          type: "integer"
-          format: "int64"
-      responses:
-        "400":
-          description: "Invalid ID supplied"
-        "404":
-          description: "not found"
-
-  /users/{userId}/:
-    delete:
-      tags:
-        - User
-      summary: удаление пользователя
-      description: метод для удаления пользователя
-      operationId: "deleteUser"
-      produces:
-        - "application/xml"
-        - "application/json"
-      parameters:
-        - name: "userId"
-          in: "path"
-          description: "User id для удаления"
-          required: true
-          type: "integer"
-          format: "int64"
-      responses:
-        "400":
-          description: "Invalid ID supplied"
-        "404":
-          description: "not found"
-
 
   /rates/:
     get:

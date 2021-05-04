@@ -19,17 +19,6 @@ public class BrokerApiImpl extends BrokerApi {
     @Autowired
     private BrokerService brokerService;
 
-    @RequestMapping(value = "/brokers/{brokerId}",
-            produces = { "application/json" },
-            method = RequestMethod.DELETE)
-    @Override
-    public void deleteBroker(@PathVariable Long brokerId) throws ApiException {
-        if (brokerService.get(brokerId.intValue()).isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Not found");
-        }
-        brokerService.delete(Math.toIntExact(brokerId));
-    }
 
     @RequestMapping(value = "/brokers/",
             produces = { "application/json" },

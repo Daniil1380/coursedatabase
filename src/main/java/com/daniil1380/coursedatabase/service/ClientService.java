@@ -5,6 +5,8 @@ import com.daniil1380.coursedatabase.entity.ClientEntity;
 import com.daniil1380.coursedatabase.repository.AccountRepository;
 import com.daniil1380.coursedatabase.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +20,13 @@ public class ClientService {
     @Autowired
     ClientRepository repo;
 
+
+    @CacheEvict("clients")
     public void save(ClientEntity clientEntity) {
         repo.save(clientEntity);
     }
 
+    @Cacheable("clients")
     public List<ClientEntity> listAll() {
         return (List<ClientEntity>) repo.findAll();
     }
@@ -30,6 +35,7 @@ public class ClientService {
         return repo.findById(id);
     }
 
+    @CacheEvict("clients")
     public void delete(Integer id) {
         repo.deleteById(id);
     }

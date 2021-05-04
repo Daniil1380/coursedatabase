@@ -20,17 +20,6 @@ public class StockExchangeApiImpl extends StockExchangeApi {
     @Autowired
     private StockExchangeService stockExchangeService;
 
-    @RequestMapping(value = "/stockExchanges/{stockExchangeId}",
-            produces = { "application/json" },
-            method = RequestMethod.DELETE)
-    @Override
-    public void deleteStockExchange(@PathVariable("stockExchangeId") Long stockExchangeId) throws ApiException {
-        if (stockExchangeService.get(stockExchangeId.intValue()).isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Not found");
-        }
-        stockExchangeService.delete(Math.toIntExact(stockExchangeId));
-    }
 
     @RequestMapping(value = "/stockExchanges/",
             produces = { "application/json" },

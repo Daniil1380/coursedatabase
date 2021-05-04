@@ -20,18 +20,6 @@ public class HolidayApiImpl extends HolidayApi {
     private HolidayService holidayService;
 
 
-    @RequestMapping(value = "/holidays/{holidayId}",
-            produces = { "application/json" },
-            method = RequestMethod.DELETE)
-    @Override
-    public void deleteHoliday(@PathVariable Long holidayId) throws ApiException {
-        if (holidayService.get(holidayId.intValue()).isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Not found");
-        }
-        holidayService.delete(Math.toIntExact(holidayId));
-    }
-
     @RequestMapping(value = "/holidays/",
             produces = { "application/json" },
             method = RequestMethod.GET)

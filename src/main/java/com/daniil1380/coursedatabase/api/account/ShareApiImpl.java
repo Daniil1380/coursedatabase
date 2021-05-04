@@ -20,19 +20,6 @@ public class ShareApiImpl extends ShareApi {
     private ShareService shareService;
 
 
-    @RequestMapping(value = "/shares/{shareId}",
-            produces = { "application/json" },
-            method = RequestMethod.DELETE)
-    @Override
-    public void deleteShare(@PathVariable("shareId") Long shareId) throws ApiException {
-        if (shareService.get(shareId.intValue()).isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Not found");
-        }
-        shareService.delete(Math.toIntExact(shareId));
-    }
-
-
     @RequestMapping(value = "/shares/",
             produces = { "application/json" },
             method = RequestMethod.GET)
