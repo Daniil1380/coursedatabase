@@ -33,30 +33,4 @@ public class CoursedatabaseApplication {
         SpringApplication.run(CoursedatabaseApplication.class, args);
     }
 
-
-    @Bean
-    @Primary
-    public ObjectMapper serializingObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer());
-        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());
-        objectMapper.registerModule(javaTimeModule);
-        return objectMapper;
-    }
-
-
-    public static class LocalDateSerializer extends JsonSerializer<LocalDate> {
-        @Override
-        public void serialize(LocalDate arg0, JsonGenerator arg1, SerializerProvider arg2) throws IOException, IOException {
-            arg1.writeString(arg0.toString());
-        }
-    }
-
-    public static class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
-        @Override
-        public LocalDate deserialize(JsonParser arg0, DeserializationContext arg1) throws IOException {
-            return LocalDate.parse(arg0.getText());
-        }
-    }
 }

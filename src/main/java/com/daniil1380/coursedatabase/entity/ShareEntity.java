@@ -1,7 +1,6 @@
 package com.daniil1380.coursedatabase.entity;
 
 
-import io.swagger.client.model.Operation;
 import io.swagger.client.model.Share;
 
 import javax.persistence.*;

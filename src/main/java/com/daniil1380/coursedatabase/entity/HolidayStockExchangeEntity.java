@@ -1,7 +1,7 @@
 package com.daniil1380.coursedatabase.entity;
 
 
-import io.swagger.client.model.Account;
+
 import io.swagger.client.model.HolidayStockExchange;
 
 import javax.persistence.*;
@@ -40,22 +40,6 @@ public class HolidayStockExchangeEntity extends Entity implements Serializable {
         holidayStockExchange.setHolidayId(holidayId);
         holidayStockExchange.setStockExchangeId(stockExchangeId);
         return holidayStockExchange;
-    }
-
-    public int getHolidayId() {
-        return holidayId;
-    }
-
-    public void setHolidayId(int holidayId) {
-        this.holidayId = holidayId;
-    }
-
-    public int getStockExchangeId() {
-        return stockExchangeId;
-    }
-
-    public void setStockExchangeId(int stockExchangeId) {
-        this.stockExchangeId = stockExchangeId;
     }
 
 }

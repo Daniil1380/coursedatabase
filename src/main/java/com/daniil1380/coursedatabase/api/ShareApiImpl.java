@@ -1,15 +1,12 @@
 package com.daniil1380.coursedatabase.api;
 
-import com.daniil1380.coursedatabase.entity.HolidayStockExchangeEntity;
 import com.daniil1380.coursedatabase.entity.ShareEntity;
 import com.daniil1380.coursedatabase.service.ShareService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ShareApi;
 import io.swagger.client.model.Share;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +21,7 @@ public class ShareApiImpl extends ShareApi {
             produces = { "application/json" },
             method = RequestMethod.GET)
     @Override
-    public List<Share> getShares() throws ApiException {
+    public List<Share> getShares(){
         return shareService.listAll()
                 .stream()
                 .map(ShareEntity::toShare)
@@ -35,7 +32,7 @@ public class ShareApiImpl extends ShareApi {
             produces = { "application/json" },
             method = RequestMethod.POST)
     @Override
-    public Share postShare(@RequestBody Share body) throws ApiException {
+    public Share postShare(@RequestBody Share body) {
         shareService.save(new ShareEntity(body));
         return body;
     }

@@ -1,8 +1,6 @@
 package com.daniil1380.coursedatabase.service;
 
-import com.daniil1380.coursedatabase.entity.ClientEntity;
 import com.daniil1380.coursedatabase.entity.RateEntity;
-import com.daniil1380.coursedatabase.repository.ClientRepository;
 import com.daniil1380.coursedatabase.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

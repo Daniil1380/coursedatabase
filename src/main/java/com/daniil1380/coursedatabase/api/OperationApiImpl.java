@@ -1,9 +1,7 @@
 package com.daniil1380.coursedatabase.api;
 
-import com.daniil1380.coursedatabase.entity.HolidayStockExchangeEntity;
 import com.daniil1380.coursedatabase.entity.OperationEntity;
 import com.daniil1380.coursedatabase.service.OperationService;
-import io.swagger.client.ApiException;
 import io.swagger.client.api.OperationApi;
 import io.swagger.client.model.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ public class OperationApiImpl extends OperationApi {
             produces = { "application/json" },
             method = RequestMethod.GET)
     @Override
-    public List<Operation> getOperations() throws ApiException {
+    public List<Operation> getOperations(){
         return operationService.listAll()
                 .stream()
                 .map(OperationEntity::toOperation)
@@ -35,7 +33,7 @@ public class OperationApiImpl extends OperationApi {
             produces = { "application/json" },
             method = RequestMethod.POST)
     @Override
-    public Operation postOperation(@RequestBody Operation body) throws ApiException {
+    public Operation postOperation(@RequestBody Operation body){
         operationService.save(new OperationEntity(body));
         return body;
     }

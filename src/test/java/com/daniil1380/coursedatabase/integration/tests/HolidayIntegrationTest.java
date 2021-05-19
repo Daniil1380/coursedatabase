@@ -1,12 +1,8 @@
 package com.daniil1380.coursedatabase.integration.tests;
 
-import com.daniil1380.coursedatabase.api.AccountApiImpl;
 import com.daniil1380.coursedatabase.api.HolidayApiImpl;
-import com.daniil1380.coursedatabase.entity.AccountEntity;
 import com.daniil1380.coursedatabase.entity.HolidayEntity;
 import com.daniil1380.coursedatabase.integration.InvestingPostgresqlContainer;
-import io.swagger.client.ApiException;
-import io.swagger.client.model.Account;
 import io.swagger.client.model.Holiday;
 import org.junit.Assert;
 import org.junit.ClassRule;
@@ -29,12 +25,13 @@ public class HolidayIntegrationTest {
     HolidayApiImpl holidayApi;
 
     @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = InvestingPostgresqlContainer.getInstance();
+    public static PostgreSQLContainer<InvestingPostgresqlContainer> postgreSQLContainer =
+            InvestingPostgresqlContainer.getInstance();
 
 
     @Test
     @Transactional
-    public void checkHolidayPost() throws ApiException {
+    public void checkHolidayPost(){
         List<Holiday> holidayList = holidayApi.getHolidays();
         int before = holidayList.size();
         holidayApi.postHoliday(new HolidayEntity(LocalDate.now()).toHoliday());
@@ -45,7 +42,7 @@ public class HolidayIntegrationTest {
 
     @Test
     @Transactional
-    public void checkHolidayGet() throws Exception {
+    public void checkHolidayGet(){
         List<Holiday> holidayList = holidayApi.getHolidays();
         Assert.assertNotNull(holidayList);
         Assert.assertEquals(5, holidayList.size());

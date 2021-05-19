@@ -5,7 +5,6 @@ import com.daniil1380.coursedatabase.service.AccountService;
 import io.swagger.client.api.AccountApi;
 import io.swagger.client.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;

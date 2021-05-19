@@ -1,16 +1,10 @@
 package com.daniil1380.coursedatabase.integration.tests;
 
 import com.daniil1380.coursedatabase.api.*;
-import com.daniil1380.coursedatabase.entity.AccountEntity;
-import com.daniil1380.coursedatabase.entity.BrokerEntity;
 import com.daniil1380.coursedatabase.entity.ClientEntity;
 import com.daniil1380.coursedatabase.integration.InvestingPostgresqlContainer;
-import io.swagger.client.ApiException;
-import io.swagger.client.model.Account;
-import io.swagger.client.model.Broker;
 import io.swagger.client.model.User;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,12 +25,13 @@ public class ClientIntegrationTest {
     ClientApiImpl clientApi;
 
     @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = InvestingPostgresqlContainer.getInstance();
+    public static PostgreSQLContainer<InvestingPostgresqlContainer> postgreSQLContainer =
+            InvestingPostgresqlContainer.getInstance();
 
 
     @Test
     @Transactional
-    public void checkClientPost() throws ApiException {
+    public void checkClientPost(){
         List<User> userList = clientApi.getUsers();
         int before = userList.size();
         clientApi.postUser(new ClientEntity("NAME", "SURNAME", LocalDate.now()).toUser());
@@ -46,10 +41,11 @@ public class ClientIntegrationTest {
 
     @Test
     @Transactional
-    public void checkClientGet() throws Exception {
+    public void checkClientGet(){
         List<User> userList = clientApi.getUsers();
         Assert.assertNotNull(userList);
         Assert.assertEquals(4, userList.size());
-        Assert.assertEquals(userList.get(0), new ClientEntity(1, "Daniil", "Tkachenko", LocalDate.parse("2001-04-24")).toUser());
+        Assert.assertEquals(userList.get(0),
+                new ClientEntity(1, "Daniil", "Tkachenko", LocalDate.parse("2001-04-24")).toUser());
     }
 }

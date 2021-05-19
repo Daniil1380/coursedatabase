@@ -1,12 +1,9 @@
 package com.daniil1380.coursedatabase.integration.tests;
 
-import com.daniil1380.coursedatabase.api.RateApiImpl;
 import com.daniil1380.coursedatabase.api.ShareApiImpl;
-import com.daniil1380.coursedatabase.entity.RateEntity;
 import com.daniil1380.coursedatabase.entity.ShareEntity;
 import com.daniil1380.coursedatabase.integration.InvestingPostgresqlContainer;
 import io.swagger.client.ApiException;
-import io.swagger.client.model.Rate;
 import io.swagger.client.model.Share;
 import org.junit.Assert;
 import org.junit.ClassRule;
@@ -28,12 +25,13 @@ public class ShareIntegrationTest {
     ShareApiImpl shareApi;
 
     @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = InvestingPostgresqlContainer.getInstance();
+    public static PostgreSQLContainer<InvestingPostgresqlContainer> postgreSQLContainer =
+            InvestingPostgresqlContainer.getInstance();
 
 
     @Test
     @Transactional
-    public void checkSharePost() throws ApiException {
+    public void checkSharePost(){
         List<Share> shareList = shareApi.getShares();
         int before = shareList.size();
         shareApi.postShare(new ShareEntity("NAME", 1, 100.98, 1000).toShare());
@@ -43,10 +41,11 @@ public class ShareIntegrationTest {
 
     @Test
     @Transactional
-    public void checkShareGet() throws Exception {
+    public void checkShareGet(){
         List<Share> shareList = shareApi.getShares();
         Assert.assertNotNull(shareList);
         Assert.assertEquals(4, shareList.size());
-        Assert.assertEquals(shareList.get(0), new ShareEntity(1, "Энел", 2, 0.85, 100).toShare());
+        Assert.assertEquals(shareList.get(0), new ShareEntity(1, "Энел", 2, 0.85, 100)
+                .toShare());
     }
 }

@@ -6,7 +6,6 @@ import io.swagger.client.model.Account;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Objects;
 
 @javax.persistence.Entity
 @Table(name = "account", schema = "public")

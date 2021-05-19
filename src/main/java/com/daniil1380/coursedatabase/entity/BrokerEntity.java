@@ -1,11 +1,9 @@
 package com.daniil1380.coursedatabase.entity;
 
 
-import io.swagger.client.model.Account;
 import io.swagger.client.model.Broker;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @javax.persistence.Entity
 @Table(name = "broker", schema = "public")

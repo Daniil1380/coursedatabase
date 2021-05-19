@@ -1,11 +1,9 @@
 package com.daniil1380.coursedatabase.entity;
 
 
-import io.swagger.client.model.Operation;
 import io.swagger.client.model.StockExchange;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @javax.persistence.Entity
@@ -30,7 +28,8 @@ public class StockExchangeEntity extends Entity{
         dayEnd = LocalTime.parse(stockExchange.getDayFinish());
     }
 
-    public StockExchangeEntity(int id, String name, String territory, String currency, LocalTime dayStart, LocalTime dayEnd) {
+    public StockExchangeEntity(int id, String name, String territory, String currency, LocalTime dayStart,
+                               LocalTime dayEnd) {
         this.id = id;
         this.name = name;
         this.territory = territory;

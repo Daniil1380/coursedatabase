@@ -1,13 +1,10 @@
 package com.daniil1380.coursedatabase.entity;
 
 
-import io.swagger.client.model.Account;
 import io.swagger.client.model.User;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @javax.persistence.Entity
 @Table(name = "client", schema = "public")

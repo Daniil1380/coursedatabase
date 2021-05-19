@@ -1,15 +1,12 @@
 package com.daniil1380.coursedatabase.api;
 
-import com.daniil1380.coursedatabase.entity.ClientEntity;
 import com.daniil1380.coursedatabase.entity.HolidayEntity;
 import com.daniil1380.coursedatabase.service.HolidayService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.HolidayApi;
 import io.swagger.client.model.Holiday;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +21,7 @@ public class HolidayApiImpl extends HolidayApi {
             produces = { "application/json" },
             method = RequestMethod.GET)
     @Override
-    public List<Holiday> getHolidays() throws ApiException {
+    public List<Holiday> getHolidays() {
         return holidayService.listAll().stream().map(HolidayEntity::toHoliday).collect(Collectors.toList());
     }
 
@@ -33,7 +30,7 @@ public class HolidayApiImpl extends HolidayApi {
             produces = { "application/json" },
             method = RequestMethod.POST)
     @Override
-    public Holiday postHoliday(@RequestBody Holiday body) throws ApiException {
+    public Holiday postHoliday(@RequestBody Holiday body) {
         holidayService.save(new HolidayEntity(body));
         return body;
     }

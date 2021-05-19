@@ -1,12 +1,8 @@
 package com.daniil1380.coursedatabase.integration.tests;
 
-import com.daniil1380.coursedatabase.api.OperationApiImpl;
 import com.daniil1380.coursedatabase.api.RateApiImpl;
-import com.daniil1380.coursedatabase.entity.OperationEntity;
 import com.daniil1380.coursedatabase.entity.RateEntity;
 import com.daniil1380.coursedatabase.integration.InvestingPostgresqlContainer;
-import io.swagger.client.ApiException;
-import io.swagger.client.model.Operation;
 import io.swagger.client.model.Rate;
 import org.junit.Assert;
 import org.junit.ClassRule;
@@ -28,12 +24,13 @@ public class RateIntegrationTest {
     RateApiImpl rateApi;
 
     @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = InvestingPostgresqlContainer.getInstance();
+    public static PostgreSQLContainer<InvestingPostgresqlContainer> postgreSQLContainer =
+            InvestingPostgresqlContainer.getInstance();
 
 
     @Test
     @Transactional
-    public void checkRatePost() throws ApiException {
+    public void checkRatePost(){
         List<Rate> rateList = rateApi.getRates();
         int before = rateList.size();
         rateApi.postRate(new RateEntity("NAME", 0.03, 100, 1).toRate());
@@ -43,10 +40,11 @@ public class RateIntegrationTest {
 
     @Test
     @Transactional
-    public void checkOperationGet() throws Exception {
+    public void checkOperationGet(){
         List<Rate> rateList = rateApi.getRates();
         Assert.assertNotNull(rateList);
         Assert.assertEquals(5, rateList.size());
-        Assert.assertEquals(rateList.get(0), new RateEntity(1,"Инвестор", 0.3, 0, 1).toRate());
+        Assert.assertEquals(rateList.get(0), new RateEntity(1,"Инвестор", 0.3, 0, 1)
+                .toRate());
     }
 }

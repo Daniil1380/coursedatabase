@@ -1,6 +1,5 @@
 package com.daniil1380.coursedatabase.service;
 
-import com.daniil1380.coursedatabase.entity.ClientEntity;
 import com.daniil1380.coursedatabase.entity.StockExchangeEntity;
 import com.daniil1380.coursedatabase.repository.StockExchangeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

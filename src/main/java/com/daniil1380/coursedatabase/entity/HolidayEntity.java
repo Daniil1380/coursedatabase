@@ -1,7 +1,6 @@
 package com.daniil1380.coursedatabase.entity;
 
 
-import io.swagger.client.model.Account;
 import io.swagger.client.model.Holiday;
 
 import javax.persistence.*;

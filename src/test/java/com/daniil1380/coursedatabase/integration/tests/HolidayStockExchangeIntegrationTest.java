@@ -1,12 +1,9 @@
 package com.daniil1380.coursedatabase.integration.tests;
 
-import com.daniil1380.coursedatabase.api.HolidayApiImpl;
 import com.daniil1380.coursedatabase.api.HolidayStockExchangeApiImpl;
-import com.daniil1380.coursedatabase.entity.HolidayEntity;
 import com.daniil1380.coursedatabase.entity.HolidayStockExchangeEntity;
 import com.daniil1380.coursedatabase.integration.InvestingPostgresqlContainer;
 import io.swagger.client.ApiException;
-import io.swagger.client.model.Holiday;
 import io.swagger.client.model.HolidayStockExchange;
 import org.junit.Assert;
 import org.junit.ClassRule;
@@ -18,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -30,15 +26,17 @@ public class HolidayStockExchangeIntegrationTest {
     HolidayStockExchangeApiImpl holidayStockExchangeApi;
 
     @ClassRule
-    public static PostgreSQLContainer postgreSQLContainer = InvestingPostgresqlContainer.getInstance();
+    public static PostgreSQLContainer<InvestingPostgresqlContainer> postgreSQLContainer =
+            InvestingPostgresqlContainer.getInstance();
 
 
     @Test
     @Transactional
-    public void checkHolidayStockExchangePost() throws ApiException {
+    public void checkHolidayStockExchangePost(){
         List<HolidayStockExchange> holidayStockExchangeList = holidayStockExchangeApi.getHolidaysStockExchange();
         int before = holidayStockExchangeList.size();
-        holidayStockExchangeApi.postHolidayStockExchange(new HolidayStockExchangeEntity(4, 4).toHolidayStockExchange());
+        holidayStockExchangeApi.postHolidayStockExchange(
+                new HolidayStockExchangeEntity(4, 4).toHolidayStockExchange());
         holidayStockExchangeList = holidayStockExchangeApi.getHolidaysStockExchange();
         Assert.assertEquals(before+1, holidayStockExchangeList.size());
     }
@@ -46,16 +44,17 @@ public class HolidayStockExchangeIntegrationTest {
 
     @Test
     @Transactional
-    public void checkHolidayStockExchangeGet() throws Exception {
+    public void checkHolidayStockExchangeGet(){
         List<HolidayStockExchange> holidayStockExchangeList = holidayStockExchangeApi.getHolidaysStockExchange();
         Assert.assertNotNull(holidayStockExchangeList);
         Assert.assertEquals(7, holidayStockExchangeList.size());
-        Assert.assertEquals(holidayStockExchangeList.get(0), new HolidayStockExchangeEntity(1, 1).toHolidayStockExchange());
+        Assert.assertEquals(holidayStockExchangeList.get(0),
+                new HolidayStockExchangeEntity(1, 1).toHolidayStockExchange());
     }
 
     @Test
     @Transactional
-    public void checkHolidayStockExchangeDelete() throws ApiException {
+    public void checkHolidayStockExchangeDelete(){
         List<HolidayStockExchange> holidayStockExchangeList = holidayStockExchangeApi.getHolidaysStockExchange();
         int before = holidayStockExchangeList.size();
         holidayStockExchangeApi.deleteHolidayStockExchange(1L, 1L);

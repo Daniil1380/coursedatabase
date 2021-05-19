@@ -1,10 +1,8 @@
 package com.daniil1380.coursedatabase.api;
 
-import com.daniil1380.coursedatabase.entity.HolidayEntity;
 import com.daniil1380.coursedatabase.entity.HolidayStockExchangeEntity;
 import com.daniil1380.coursedatabase.entity.HolidayStockExchangeIdClass;
 import com.daniil1380.coursedatabase.service.HolidayStockExchangeService;
-import io.swagger.client.ApiException;
 import io.swagger.client.api.HolidayStockExchangeApi;
 import io.swagger.client.model.HolidayStockExchange;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,8 @@ public class HolidayStockExchangeApiImpl extends HolidayStockExchangeApi {
             produces = { "application/json" },
             method = RequestMethod.DELETE)
     @Override
-    public void deleteHolidayStockExchange(@PathVariable("holidayStockExchangeId") Long holidayStockExchangeId, @PathVariable("holidayId") Long holidayId) throws ApiException {
+    public void deleteHolidayStockExchange(@PathVariable("holidayStockExchangeId") Long holidayStockExchangeId,
+                                           @PathVariable("holidayId") Long holidayId) {
         HolidayStockExchangeIdClass holidayStockExchangeIdClass = new HolidayStockExchangeIdClass();
         holidayStockExchangeIdClass.setHolidayId(holidayId.intValue());
         holidayStockExchangeIdClass.setStockExchangeId(holidayStockExchangeId.intValue());
@@ -39,7 +38,7 @@ public class HolidayStockExchangeApiImpl extends HolidayStockExchangeApi {
             produces = { "application/json" },
             method = RequestMethod.GET)
     @Override
-    public List<HolidayStockExchange> getHolidaysStockExchange() throws ApiException {
+    public List<HolidayStockExchange> getHolidaysStockExchange(){
         return holidayStockExchangeService.listAll()
                 .stream()
                 .map(HolidayStockExchangeEntity::toHolidayStockExchange)
@@ -51,7 +50,7 @@ public class HolidayStockExchangeApiImpl extends HolidayStockExchangeApi {
             produces = { "application/json" },
             method = RequestMethod.POST)
     @Override
-    public HolidayStockExchange postHolidayStockExchange(@RequestBody HolidayStockExchange body) throws ApiException {
+    public HolidayStockExchange postHolidayStockExchange(@RequestBody HolidayStockExchange body){
         holidayStockExchangeService.save(new HolidayStockExchangeEntity(body));
         return body;
     }
