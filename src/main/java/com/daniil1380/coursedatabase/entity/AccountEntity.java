@@ -6,6 +6,7 @@ import io.swagger.client.model.Account;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Objects;
 
 @javax.persistence.Entity
 @Table(name = "account", schema = "public")
@@ -21,6 +22,14 @@ public class AccountEntity extends Entity{
     public AccountEntity() {
     }
 
+    public AccountEntity(int brokerId, double cash, boolean margin, int rateId, int clientId) {
+        this.brokerId = brokerId;
+        this.cash = cash;
+        this.margin = margin;
+        this.rateId = rateId;
+        this.clientId = clientId;
+    }
+
     public AccountEntity(Account account) {
         brokerId = account.getBrokerId();
         cash = account.getCash().doubleValue();
@@ -30,6 +39,14 @@ public class AccountEntity extends Entity{
     }
 
 
+    public AccountEntity(int id, int brokerId, double cash, boolean margin, int rateId, int clientId) {
+        this.id = id;
+        this.brokerId = brokerId;
+        this.cash = cash;
+        this.margin = margin;
+        this.rateId = rateId;
+        this.clientId = clientId;
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -93,10 +110,6 @@ public class AccountEntity extends Entity{
         this.clientId = clientId;
     }
 
-    @Override
-    public String generateSQLString() {
-        return String.format("INSERT INTO account (broker_id, cash, margin, rate_id, client_id) VALUES (%s, %s, %s, %s, %s);", brokerId, cash, margin, rateId, clientId);
-    }
 
 
     public Account toAccount(){

@@ -17,6 +17,15 @@ public class HolidayEntity extends Entity{
     public HolidayEntity() {
     }
 
+    public HolidayEntity(int id, LocalDate day) {
+        this.id = id;
+        this.day = day;
+    }
+
+    public HolidayEntity(LocalDate day) {
+        this.day = day;
+    }
+
     public HolidayEntity(Holiday holiday) {
         day = LocalDate.parse(holiday.getDate());
     }
@@ -51,8 +60,6 @@ public class HolidayEntity extends Entity{
         this.day = day;
     }
 
-    @Override
-    public String generateSQLString() {
-        return String.format("INSERT INTO holiday (day) VALUES ('%s')", day);
-    }
-}
+
+
+   }

@@ -21,12 +21,10 @@ public class ClientService {
     ClientRepository repo;
 
 
-    @CacheEvict("clients")
     public void save(ClientEntity clientEntity) {
         repo.save(clientEntity);
     }
 
-    @Cacheable("clients")
     public List<ClientEntity> listAll() {
         return (List<ClientEntity>) repo.findAll();
     }
@@ -35,7 +33,6 @@ public class ClientService {
         return repo.findById(id);
     }
 
-    @CacheEvict("clients")
     public void delete(Integer id) {
         repo.deleteById(id);
     }

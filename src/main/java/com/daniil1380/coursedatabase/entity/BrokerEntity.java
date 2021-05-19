@@ -5,6 +5,7 @@ import io.swagger.client.model.Account;
 import io.swagger.client.model.Broker;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @javax.persistence.Entity
 @Table(name = "broker", schema = "public")
@@ -14,8 +15,20 @@ public class BrokerEntity extends Entity{
     private String country;
     private boolean state;
 
+    public BrokerEntity(String name, String country, boolean state) {
+        this.name = name;
+        this.country = country;
+        this.state = state;
+    }
 
     public BrokerEntity() {
+    }
+
+    public BrokerEntity(int id, String name, String country, boolean state) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.state = state;
     }
 
     public BrokerEntity(Broker broker) {
@@ -75,8 +88,4 @@ public class BrokerEntity extends Entity{
         this.state = state;
     }
 
-    @Override
-    public String generateSQLString() {
-        return String.format("INSERT INTO broker (name, country, state) VALUES ('%s', '%s', '%s');", name, country, state);
-    }
 }

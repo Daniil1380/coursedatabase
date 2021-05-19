@@ -25,6 +25,21 @@ public class OperationEntity extends Entity{
         buySell = operation.getBuySell();
     }
 
+    public OperationEntity(int id, int clientId, int shareId, int count, String buySell) {
+        this.id = id;
+        this.clientId = clientId;
+        this.shareId = shareId;
+        this.count = count;
+        this.buySell = buySell;
+    }
+
+    public OperationEntity(int clientId, int shareId, int count, String buySell) {
+        this.clientId = clientId;
+        this.shareId = shareId;
+        this.count = count;
+        this.buySell = buySell;
+    }
+
     public Operation toOperation(){
         Operation operation = new Operation();
         operation.setId(id);
@@ -88,8 +103,5 @@ public class OperationEntity extends Entity{
         this.buySell = buySell;
     }
 
-    @Override
-    public String generateSQLString() {
-        return String.format("INSERT INTO operation (client_id, share_id, count, buy_sell) VALUES ('%s', '%s', '%s', '%s');", clientId, shareId, count, buySell);
-    }
+
 }

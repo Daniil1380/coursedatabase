@@ -1,11 +1,11 @@
-package com.daniil1380.coursedatabase.api.account;
+package com.daniil1380.coursedatabase.api;
 
 import com.daniil1380.coursedatabase.entity.HolidayStockExchangeEntity;
-import com.daniil1380.coursedatabase.entity.RateEntity;
-import com.daniil1380.coursedatabase.service.RateService;
+import com.daniil1380.coursedatabase.entity.ShareEntity;
+import com.daniil1380.coursedatabase.service.ShareService;
 import io.swagger.client.ApiException;
-import io.swagger.client.api.RateApi;
-import io.swagger.client.model.Rate;
+import io.swagger.client.api.ShareApi;
+import io.swagger.client.model.Share;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,28 +15,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class RateApiImpl extends RateApi {
+public class ShareApiImpl extends ShareApi {
     @Autowired
-    private RateService rateService;
+    private ShareService shareService;
 
 
-    @RequestMapping(value = "/rates/",
+    @RequestMapping(value = "/shares/",
             produces = { "application/json" },
             method = RequestMethod.GET)
     @Override
-    public List<Rate> getRates() throws ApiException {
-        return rateService.listAll()
+    public List<Share> getShares() throws ApiException {
+        return shareService.listAll()
                 .stream()
-                .map(RateEntity::toRate)
+                .map(ShareEntity::toShare)
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/rates/",
+    @RequestMapping(value = "/shares/",
             produces = { "application/json" },
             method = RequestMethod.POST)
     @Override
-    public Rate postRate(@RequestBody Rate body) throws ApiException {
-        rateService.save(new RateEntity(body));
+    public Share postShare(@RequestBody Share body) throws ApiException {
+        shareService.save(new ShareEntity(body));
         return body;
     }
 }

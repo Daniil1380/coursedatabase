@@ -30,6 +30,23 @@ public class StockExchangeEntity extends Entity{
         dayEnd = LocalTime.parse(stockExchange.getDayFinish());
     }
 
+    public StockExchangeEntity(int id, String name, String territory, String currency, LocalTime dayStart, LocalTime dayEnd) {
+        this.id = id;
+        this.name = name;
+        this.territory = territory;
+        this.currency = currency;
+        this.dayStart = dayStart;
+        this.dayEnd = dayEnd;
+    }
+
+    public StockExchangeEntity(String name, String territory, String currency, LocalTime dayStart, LocalTime dayEnd) {
+        this.name = name;
+        this.territory = territory;
+        this.currency = currency;
+        this.dayStart = dayStart;
+        this.dayEnd = dayEnd;
+    }
+
     public StockExchange toStockExchange(){
         StockExchange stockExchange = new StockExchange();
         stockExchange.setId(id);
@@ -103,8 +120,4 @@ public class StockExchangeEntity extends Entity{
         this.dayEnd = dayEnd;
     }
 
-    @Override
-    public String generateSQLString() {
-        return String.format("INSERT INTO stock_exchange (name, territory, currency) VALUES ('%s', '%s', '%s');", name, territory, currency);
-    }
 }

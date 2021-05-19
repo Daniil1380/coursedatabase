@@ -7,6 +7,7 @@ import io.swagger.client.model.User;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @javax.persistence.Entity
 @Table(name = "client", schema = "public")
@@ -18,6 +19,19 @@ public class ClientEntity extends Entity {
     private LocalDate birthDate;
 
     public ClientEntity() {
+    }
+
+    public ClientEntity(String name, String surname, LocalDate birthDate) {
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
+    }
+
+    public ClientEntity(int id, String name, String surname, LocalDate birthDate) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
     }
 
     public ClientEntity(User user) {
@@ -78,7 +92,4 @@ public class ClientEntity extends Entity {
         this.birthDate = birthDate;
     }
 
-    public String generateSQLString(){
-        return String.format("INSERT INTO client (name, surname, birth_date) VALUES ('%s', '%s', '%s');", name, surname, birthDate);
-    }
 }

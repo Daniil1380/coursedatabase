@@ -1,4 +1,4 @@
-package com.daniil1380.coursedatabase.api.account;
+package com.daniil1380.coursedatabase.api;
 
 import com.daniil1380.coursedatabase.entity.AccountEntity;
 import com.daniil1380.coursedatabase.service.AccountService;
@@ -25,11 +25,7 @@ public class AccountApiImpl extends AccountApi {
             method = RequestMethod.GET)
     @Override
     public List<Account> getAccounts() {
-        long start = System.currentTimeMillis();
-        List<Account> list = accountService.listAll().stream().map(AccountEntity::toAccount).collect(Collectors.toList());
-        long finish = System.currentTimeMillis();
-        System.out.println(finish - start);
-        return list;
+        return accountService.listAll().stream().map(AccountEntity::toAccount).collect(Collectors.toList());
     }
 
 

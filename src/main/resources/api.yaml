@@ -4,6 +4,11 @@ info:
   description: Описание API для банковского приложения
   version: 1.0.0
 host: localhost:8080
+securityDefinitions:
+  JWT:
+    type: apiKey
+    in: header
+    name: Authorization
 schemes:
   - https
 tags:

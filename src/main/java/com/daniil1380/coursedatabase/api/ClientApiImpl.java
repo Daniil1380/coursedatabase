@@ -1,4 +1,4 @@
-package com.daniil1380.coursedatabase.api.account;
+package com.daniil1380.coursedatabase.api;
 
 import com.daniil1380.coursedatabase.entity.BrokerEntity;
 import com.daniil1380.coursedatabase.entity.ClientEntity;
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 public class ClientApiImpl extends UserApi {
+
     @Autowired
     private ClientService clientService;
 

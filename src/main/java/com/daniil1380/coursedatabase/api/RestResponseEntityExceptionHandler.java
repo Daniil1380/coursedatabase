@@ -1,4 +1,4 @@
-package com.daniil1380.coursedatabase.api.account;
+package com.daniil1380.coursedatabase.api;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

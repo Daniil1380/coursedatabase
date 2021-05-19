@@ -30,6 +30,11 @@ public class HolidayStockExchangeEntity extends Entity implements Serializable {
         stockExchangeId = holidayStockExchange.getStockExchangeId();
     }
 
+    public HolidayStockExchangeEntity(int holidayId, int stockExchangeId) {
+        this.holidayId = holidayId;
+        this.stockExchangeId = stockExchangeId;
+    }
+
     public HolidayStockExchange toHolidayStockExchange(){
         HolidayStockExchange holidayStockExchange = new HolidayStockExchange();
         holidayStockExchange.setHolidayId(holidayId);
@@ -53,8 +58,4 @@ public class HolidayStockExchangeEntity extends Entity implements Serializable {
         this.stockExchangeId = stockExchangeId;
     }
 
-    @Override
-    public String generateSQLString() {
-        return String.format("INSERT INTO holiday_stock_exchange (holiday_id, stock_exchange) VALUES ('%s', '%s');", holidayId, stockExchangeId);
-    }
 }

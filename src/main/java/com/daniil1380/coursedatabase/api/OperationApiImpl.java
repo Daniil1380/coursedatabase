@@ -1,4 +1,4 @@
-package com.daniil1380.coursedatabase.api.account;
+package com.daniil1380.coursedatabase.api;
 
 import com.daniil1380.coursedatabase.entity.HolidayStockExchangeEntity;
 import com.daniil1380.coursedatabase.entity.OperationEntity;

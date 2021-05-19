@@ -28,6 +28,21 @@ public class ShareEntity extends Entity{
         count = share.getCount();
     }
 
+    public ShareEntity(int id, String name, int stockExchangeId, double cost, int count) {
+        this.id = id;
+        this.name = name;
+        this.stockExchangeId = stockExchangeId;
+        this.cost = cost;
+        this.count = count;
+    }
+
+    public ShareEntity(String name, int stockExchangeId, double cost, int count) {
+        this.name = name;
+        this.stockExchangeId = stockExchangeId;
+        this.cost = cost;
+        this.count = count;
+    }
+
     public Share toShare(){
         Share share = new Share();
         share.setId(id);
@@ -91,8 +106,4 @@ public class ShareEntity extends Entity{
         this.count = count;
     }
 
-    @Override
-    public String generateSQLString() {
-        return String.format("INSERT INTO share (name, stock_exchange_id, cost, count) VALUES ('%s', '%s', '%s', '%s');", name, stockExchangeId, cost, count);
-    }
 }

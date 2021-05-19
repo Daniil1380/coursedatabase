@@ -1,4 +1,4 @@
-package com.daniil1380.coursedatabase.api.account;
+package com.daniil1380.coursedatabase.api;
 
 import com.daniil1380.coursedatabase.entity.AccountEntity;
 import com.daniil1380.coursedatabase.entity.BrokerEntity;
@@ -7,6 +7,9 @@ import io.swagger.client.ApiException;
 import io.swagger.client.api.BrokerApi;
 import io.swagger.client.model.Broker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
