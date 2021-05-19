@@ -44,7 +44,7 @@ public class RateIntegrationTest {
         List<Rate> rateList = rateApi.getRates();
         Assert.assertNotNull(rateList);
         Assert.assertEquals(5, rateList.size());
-        Assert.assertEquals(rateList.get(0), new RateEntity(1,"Инвестор", 0.3, 0, 1)
-                .toRate());
+        Assert.assertEquals(rateList.get(0), new RateEntity(1,"Инвестор", 0.3000000120000000,
+                0, 1).toRate());
     }
 }
