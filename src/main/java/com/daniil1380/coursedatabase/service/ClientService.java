@@ -1,6 +1,8 @@
 package com.daniil1380.coursedatabase.service;
 
+import com.daniil1380.coursedatabase.entity.AccountWithBrokerIdEntity;
 import com.daniil1380.coursedatabase.entity.ClientEntity;
+import com.daniil1380.coursedatabase.repository.AccountWithBrokerIdRepository;
 import com.daniil1380.coursedatabase.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,22 +16,28 @@ import java.util.Optional;
 public class ClientService {
 
     @Autowired
-    ClientRepository repo;
+    ClientRepository clientRepository;
 
+    @Autowired
+    AccountWithBrokerIdRepository accountWithBrokerIdRepository;
 
     public void save(ClientEntity clientEntity) {
-        repo.save(clientEntity);
+        clientRepository.save(clientEntity);
     }
 
     public List<ClientEntity> listAll() {
-        return (List<ClientEntity>) repo.findAll();
+        return (List<ClientEntity>) clientRepository.findAll();
     }
 
     public Optional<ClientEntity> get(Integer id) {
-        return repo.findById(id);
+        return clientRepository.findById(id);
     }
 
     public void delete(Integer id) {
-        repo.deleteById(id);
+        clientRepository.deleteById(id);
+    }
+
+    public List<AccountWithBrokerIdEntity> getAllAccountsByClient(int id){
+        return accountWithBrokerIdRepository.getAccountWithBrokerIdEntity(id);
     }
 }

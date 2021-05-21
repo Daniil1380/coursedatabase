@@ -169,6 +169,29 @@ paths:
           schema:
             $ref: '#/definitions/Exception'
 
+  /rates/lessUsed/{brokerId}:
+    delete:
+      tags:
+        - Rate
+      summary: удаление самого непопулярного тарифа
+      description: метод для удаления самого непопулярного тарифа
+      operationId: "deleteLessUsedRate"
+      parameters:
+        - name: "brokerId"
+          in: "path"
+          description: "broker id для удаления"
+          required: true
+          type: "integer"
+          format: "int64"
+      produces:
+        - "application/xml"
+        - "application/json"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "not found"
+
   /accounts/:
     get:
       tags:
@@ -337,6 +360,36 @@ paths:
           schema:
             $ref: '#/definitions/Exception'
 
+
+  /users/{userId}/accounts:
+    get:
+      tags:
+        - User
+      summary: получение всех аккаунтов пользователя
+      description: метод предназначен для получения списка всех аккаунтов
+      operationId: getUserAccounts
+      produces:
+        - application/json
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "user id для нахождения всех аккаунтов"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: список аккаунтов пользователя
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/AccountWithBrokerId'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
   /stockExchanges/:
     get:
       tags:
@@ -416,6 +469,29 @@ paths:
           description: созданая акция
           schema:
             $ref: '#/definitions/Share'
+        '500':
+          description: внутренняя ошибка приложения
+          schema:
+            $ref: '#/definitions/Exception'
+
+
+  /shares/topTen:
+    get:
+      tags:
+        - Share
+      summary: получение списка топ-10 акций
+      description: метод предназначен для получения списка топ-10 акций
+      operationId: getTopShares
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: список топ-акций
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/definitions/TopShare'
         '500':
           description: внутренняя ошибка приложения
           schema:
@@ -672,6 +748,69 @@ definitions:
       buySell:
         type: string
         description: покупка или продажа
+
+  TopShare:
+    type: object
+    description: акция из топ-10
+    required:
+      - share
+      - stock
+      - currency
+      - allBS
+      - buy
+      - buyCost
+      - sell
+      - sellCost
+    properties:
+      share:
+        type: string
+        description: название акции
+      stock:
+        type: string
+        description: название биржи
+      currency:
+        type: string
+        description: название валюты
+      allBS:
+        type: integer
+        description: всего сделок
+      buy:
+        type: integer
+        description: всего покупок
+      buyCost:
+        type: number
+        description: сумма покупок
+      sell:
+        type: integer
+        description: всего продаж
+      sellCost:
+        type: number
+        description: сумма продаж
+
+
+
+  AccountWithBrokerId:
+    type: object
+    description: акция из топ-10
+    required:
+      - id
+      - cash
+      - name
+      - rate
+    properties:
+      id:
+        type: integer
+        description: id аккаунта
+      cash:
+        type: number
+        description: количество денег
+      name:
+        type: string
+        description: название биржи
+      rate:
+        type: string
+        description: название тарифа
+
 
   Exception:
     type: object

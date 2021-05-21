@@ -36,4 +36,9 @@ public class RateService {
     public void delete(Integer id) {
         repo.deleteById(id);
     }
+
+    @CacheEvict("rates")
+    public void deleteLessUsed(int broker){
+        repo.deleteLessUsedRate(broker);
+    }
 }

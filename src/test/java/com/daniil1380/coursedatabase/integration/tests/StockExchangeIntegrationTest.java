@@ -51,4 +51,17 @@ public class StockExchangeIntegrationTest {
                 new StockExchangeEntity(1, "Московская биржа", "Россия", "RUB",
                         LocalTime.MIN.withHour(10), LocalTime.MIN.withHour(18)).toStockExchange());
     }
+
+    @Test
+    @Transactional
+    public void checkSqlInjection(){
+        List<StockExchange> stockExchangeList = stockExchangeApi.getStockExchange();
+        int before = stockExchangeList.size();
+        stockExchangeApi.postStockExchange(
+                new StockExchangeEntity("NAME", "TER", "'); DROP SCHEMA public CASCADE; --",
+                        LocalTime.MIN, LocalTime.MAX).toStockExchange());
+        stockExchangeList = stockExchangeApi.getStockExchange();
+        Assert.assertEquals(before+1, stockExchangeList.size());
+    }
+
 }

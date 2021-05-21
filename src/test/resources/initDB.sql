@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS stock_exchange(
                                              id SERIAL,
                                              name VARCHAR(50),
                                              territory varchar(100),
-                                             currency varchar(25),
+                                             currency varchar(50),
                                              primary key (id)
 );
 CREATE TABLE IF NOT EXISTS rate(

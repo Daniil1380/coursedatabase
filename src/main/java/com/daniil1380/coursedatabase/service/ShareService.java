@@ -1,6 +1,7 @@
 package com.daniil1380.coursedatabase.service;
 
 import com.daniil1380.coursedatabase.entity.ShareEntity;
+import com.daniil1380.coursedatabase.entity.TopSharesEntity;
 import com.daniil1380.coursedatabase.repository.ShareRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -35,5 +36,10 @@ public class ShareService {
     @CacheEvict("shares")
     public void delete(Integer id) {
         repo.deleteById(id);
+    }
+
+
+    public List<TopSharesEntity> getTopTenShares(){
+        return repo.getTopTenShares();
     }
 }

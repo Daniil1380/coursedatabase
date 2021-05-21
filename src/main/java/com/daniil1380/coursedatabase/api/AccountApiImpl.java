@@ -20,16 +20,20 @@ public class AccountApiImpl extends AccountApi {
 
 
     @RequestMapping(value = "/accounts/",
-            produces = { "application/json" },
+            produces = {"application/json"},
             method = RequestMethod.GET)
     @Override
     public List<Account> getAccounts() {
-        return accountService.listAll().stream().map(AccountEntity::toAccount).collect(Collectors.toList());
+        long start = System.nanoTime();
+        List<Account> list = accountService.listAll().stream().map(AccountEntity::toAccount).collect(Collectors.toList());
+        long finish = System.nanoTime();
+        System.out.println(finish - start);
+        return list;
     }
 
 
     @RequestMapping(value = "/accounts/",
-            produces = { "application/json" },
+            produces = {"application/json"},
             method = RequestMethod.POST)
     @Override
     public Account postAccount(@RequestBody Account body) {
@@ -38,7 +42,7 @@ public class AccountApiImpl extends AccountApi {
     }
 
     @RequestMapping(value = "/accounts/{accountId}",
-            produces = { "application/json" },
+            produces = {"application/json"},
             method = RequestMethod.DELETE)
     @Override
     public void deleteAccount(@PathVariable("accountId") Long accountId) {
